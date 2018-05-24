@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -31,6 +32,10 @@ class Informacion extends JFrame implements ActionListener {
     JButton crear;
     JLabel lblCantidad;
     JTextField cantidad;
+    
+    ArrayList<Double> numero1;
+    ArrayList<Double> numero2;
+    ArrayList<Double> numero3;
 
     public Informacion() {
         super("Informacion");
@@ -72,6 +77,9 @@ class Informacion extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == abrir) {
+            numero1=new ArrayList<>();
+            numero2=new ArrayList<>();
+            numero3=new ArrayList<>();
             int respuesta;
             JFileChooser fc = new JFileChooser();
             respuesta = fc.showDialog(null, "Aceptar");
@@ -83,14 +91,32 @@ class Informacion extends JFrame implements ActionListener {
                     while (sc.hasNext()) {
                         numeros = sc.nextLine().split(",");
                         int num1 = Integer.parseInt(numeros[0]);
+                        numero1.add((Double.parseDouble(num1+"")));
                         double num2 = Double.parseDouble(numeros[1]);
+                        numero2.add(num2);
                         double num3 = Double.parseDouble(numeros[2]);
-                        double media = (num1 + num2 + num3) / 3;
-                       // System.out.println(media);
-                        String mediaString = String.format("%.2f", media);
-                        texto += mediaString + "<br>";
+                        numero3.add(num3);
+//                        System.out.println(num1);
+//                        System.out.println(num2);
+//                        System.out.println(num3);
+//                        double media = (num1 + num2 + num3) / 3;
+//                        // System.out.println(media);
+//                        String mediaString = String.format("%.2f", media);
+//                        texto += mediaString + "<br>";
                     }
-                    texto += "<html>";
+                    Double suma1=0.0;
+                    Double suma2=0.0;
+                    Double suma3 = 0.0;
+                    for (int i = 0; i < numero1.size(); i++) {
+                        suma1+=numero1.get(i);
+                        suma2+=numero2.get(i);
+                        suma3+=numero3.get(i);
+                    }
+                    Double media1=suma1/numero1.size();
+                    Double media2=suma2/numero1.size();
+                    Double media3=suma3/numero1.size();
+                    texto += media1+"<br>"+media2+"<br>"+media3+"</html>";
+                    //System.out.println(texto);
                     error.setText(texto);
                     error.setSize(error.getPreferredSize());
                 } catch (Exception ex) {
@@ -101,25 +127,29 @@ class Informacion extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == crear) {
-            File f = new File("/home/ero/Escritorio/Arrays/Bol7_Ejer4/src/archivos/archivos.txt");
+            String home = System.getProperty("user.home");
+            File f = new File(home + "/archivos.csv");
             if (f.exists() == false) {
                 try {
                     f.createNewFile();
-                    System.out.println("sd");
                 } catch (IOException ex) {
                 }
             }
             try (PrintWriter p = new PrintWriter(new FileWriter(f))) {
-                for (int i = 0; i < Integer.parseInt(cantidad.getText()); i++) {
-                    int num1 = (int) (Math.random() * 90 + 10);
-                    double num2 = (double) (Math.random() * 1001 + 0);
-                    double num3 = (double) (Math.random() * 10001 + 100);
-                    String linea = num1 +","+ num2 +","+ num3 + "\n";
-                    p.print(linea);
+                int numero = Integer.parseInt(cantidad.getText());
+                if (numero <= 0) {
+                    JOptionPane.showMessageDialog(null, "Introduce un numero de lineas valido");
+                } else {
+                    for (int i = 0; i < Integer.parseInt(cantidad.getText()); i++) {
+                        int num1 = (int) (Math.random() * 90 + 10);
+                        double num2 = (double) (Math.random() * 1001 + 0);
+                        double num3 = (double) (Math.random() * 10001 + 100);
+                        String linea = num1 + "," + num2 + "," + num3 + "\n";
+                        p.print(linea);
+                    }
+                    JOptionPane.showMessageDialog(null, "Se ha creado, con el nombre archivos.csv en el directorio personal");
                 }
-                JOptionPane.showMessageDialog(null, "Se ha creado");
             } catch (Exception exc) {
-                System.out.println(exc.toString());
             }
         }
     }
