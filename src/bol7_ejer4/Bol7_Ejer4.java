@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- *
+ *Validado
  * @author ero
  */
 class Informacion extends JFrame implements ActionListener {
@@ -104,20 +104,20 @@ class Informacion extends JFrame implements ActionListener {
 //                        String mediaString = String.format("%.2f", media);
 //                        texto += mediaString + "<br>";
                     }
-                    Double suma1=0.0;
-                    Double suma2=0.0;
-                    Double suma3 = 0.0;
+                    double suma1=0.0;
+                    double suma2=0.0;
+                    double suma3 = 0.0;
                     for (int i = 0; i < numero1.size(); i++) {
                         suma1+=numero1.get(i);
                         suma2+=numero2.get(i);
                         suma3+=numero3.get(i);
                     }
-                    Double media1=suma1/numero1.size();
-                    Double media2=suma2/numero1.size();
-                    Double media3=suma3/numero1.size();
-                    String stringMedia1=String.format(".2f", media1);
-                    String stringMedia2=String.format(".2f", media2);
-                    String stringMedia3=String.format(".2f", media3);
+                    double media1=suma1/numero1.size();
+                    double media2=suma2/numero1.size();
+                    double media3=suma3/numero1.size();
+                    String stringMedia1=String.format("%.2f", media1);
+                    String stringMedia2=String.format("%.2f", media2);
+                    String stringMedia3=String.format("%.2f", media3);
                     texto += stringMedia1+"<br>"+stringMedia2+"<br>"+stringMedia3+"</html>";
                     //System.out.println(texto);
                     error.setText(texto);
