@@ -115,7 +115,10 @@ class Informacion extends JFrame implements ActionListener {
                     Double media1=suma1/numero1.size();
                     Double media2=suma2/numero1.size();
                     Double media3=suma3/numero1.size();
-                    texto += media1+"<br>"+media2+"<br>"+media3+"</html>";
+                    String stringMedia1=String.format(".2f", media1);
+                    String stringMedia2=String.format(".2f", media2);
+                    String stringMedia3=String.format(".2f", media3);
+                    texto += stringMedia1+"<br>"+stringMedia2+"<br>"+stringMedia3+"</html>";
                     //System.out.println(texto);
                     error.setText(texto);
                     error.setSize(error.getPreferredSize());
@@ -150,6 +153,7 @@ class Informacion extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Se ha creado, con el nombre archivos.csv en el directorio personal");
                 }
             } catch (Exception exc) {
+                JOptionPane.showMessageDialog(null, "Introduce un numero valido");
             }
         }
     }
